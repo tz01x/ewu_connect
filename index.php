@@ -1,7 +1,7 @@
 <?php 
 require("helper.php");
 
-// $mydata=fetch_data("select * form mytable");
+ $mydata=fetch_data("select * from user");
 
 ?>
 
@@ -19,6 +19,29 @@ require("helper.php");
     <div>
         this is a home page of Ewu connect 
     </div>
+
+    <?php
+
+//print_r($mydata);
+foreach($mydata as $item) {
+    echo $item['id'];
+    echo $item['username'];
+    echo $item['password'];
+
+
+    // to know what's in $item
+   // echo '<pre>'; var_dump($item);
+}
+
+
+
+
+
+    ?> 
+
+
+
+
     <div class="myapp"></div>
 </body>
 </html>

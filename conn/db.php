@@ -4,7 +4,7 @@ require ("settings.php");
         $server="localhost";
         $username="root";
         $password="";
-        $database="epiz_28006799_test_001";
+        $database="ewu_connect";
 
     }else{
         $server = "192.168.0.172";
@@ -17,8 +17,10 @@ require ("settings.php");
 
 
 // Create connection
-$conn = new mysqli($server, $username, $password, $database,"3306");
+//$conn = new mysqli($server, $username, $password, $database,"3306");
+$conn = new mysqli($server, $username, $password, $database);
 // Check connection
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
