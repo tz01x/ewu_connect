@@ -31,6 +31,26 @@ require("helper.php");
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/login.php">Login Page</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/signup.php">Sign Up Page</a>
+        </li>
+        
+        <?php
+         
+        session_start();
+            if(isset($_SESSION['uid'])){
+              echo'<li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/profile.php">Profile Page</a>
+          
+            </li>';
+            }
+
+
+        ?>
+
+<li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/logout.php">Logout</a>
+        </li>
         
       </ul>
     </div>
