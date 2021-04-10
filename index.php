@@ -6,7 +6,7 @@ require("helper.php");
 ?>
 
 
-<<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -19,6 +19,24 @@ require("helper.php");
     <title>Ewu connect </title>
   </head>
   <body>
+    <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">EWU Connect</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/login.php">Login Page</a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
     <h1>Ewu connect  home page</h1>
 
     <!-- Optional JavaScript; choose one of the two! -->
