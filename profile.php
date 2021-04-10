@@ -1,8 +1,16 @@
 <?php 
-require("helper.php");
+session_start();
 
- $mydata=fetch_data("select * from user");
+if (isset($_SESSION['uid'])) {
+    // continue 
+}else{
 
+    // /redirect to login page 
+
+    header("Location: http://localhost/ewu_connect/login.php");
+    die();
+
+}
 ?>
 
 
@@ -16,10 +24,10 @@ require("helper.php");
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-    <title>Ewu connect </title>
+    <title>Ewu connect-User profile</title>
   </head>
   <body>
-    <h1>Ewu connect  home page</h1>
+    <h1>welcome <?php echo $_SESSION['username']?></h1>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
