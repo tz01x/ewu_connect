@@ -49,7 +49,19 @@ require("helper.php");
         ?>
 
 <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/logout.php">Logout</a>
+<?php
+         
+         //session_start();
+             if(isset($_SESSION['uid'])){
+               echo'<li class="nav-item">
+               <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/logout.php">Logout</a>
+           
+             </li>';
+             }
+ 
+ 
+         ?>
+          
         </li>
         
       </ul>
