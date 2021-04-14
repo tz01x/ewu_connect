@@ -69,7 +69,24 @@ require("helper.php");
   </div>
 </nav>
 </div>
+
+
+    <div class="container">
     <h1>Ewu connect  home page</h1>
+    <!-- <?php echo $_SERVER['REQUEST_SCHEME'].'://'?> -->
+    <?php
+    //  echo ($_SERVER['SERVER_NAME']);//.$_SERVER['REQUEST_URI'];
+    // HTTP_REFERER
+    echo getHost();
+    ?>
+
+    </div>
+
+    <div>
+    
+    
+    </div>
+    
 
     <!-- Optional JavaScript; choose one of the two! -->
 

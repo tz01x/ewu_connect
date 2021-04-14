@@ -6,9 +6,10 @@ if(isset($_POST['submit'])){
 
 $username=$_POST['username'];
 $password=$_POST['password'];
-$sql='SELECT * FROM `user` WHERE username="'.$username.'"  ';
+$sql='SELECT * FROM `user` WHERE username="'.$username.'" and is_active=1 ';
 $data=fetch_data($sql);
 // print_r($data);
+if(count($data)==1){
 if($data[0]['password']==$password){
     session_unset(); 
     session_start();
@@ -17,6 +18,11 @@ if($data[0]['password']==$password){
     $_SESSION['username']=$data[0]['username'];
     echo "<script>window.location.assign('http://localhost/ewu_connect/profile.php');</script>  ";
     // go to index page 
+}else {
+  echo "<script>alert('password dont match')</script>  ";
+}
+}else {
+  echo "<script>alert('this account isn't active ')</script>  ";
 }
 }
 
@@ -61,6 +67,7 @@ if($data[0]['password']==$password){
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/ewu_connect/signup.php">Sign Up</a>
         </li>
+        
       
         
   

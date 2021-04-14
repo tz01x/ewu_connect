@@ -1,0 +1,4 @@
+ALTER TABLE `user` ADD UNIQUE(`email`);
+ALTER TABLE `user` ADD `alternate_email` VARCHAR(100) NULL AFTER `email`;
+ALTER TABLE `user` ADD `full_name` VARCHAR(100) NULL AFTER `alternate_email`;
+ALTER TABLE `user` ADD `is_active` BOOLEAN NOT NULL AFTER `full_name`;
