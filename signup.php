@@ -32,13 +32,17 @@ if(isset($_POST['submit'])){
       
       </p>
       ');
-
+      $messageModal['show']=TRUE;
+      $messageModal['title']='Account been created !';
+      $messageModal['body']="We have send a varify mail to your email address, Please check in order to active your account!";
+  
 
       // echo "<script>window.location.assign('');;</script>  ";
+
     
       
     } else {
-      echo "Error: " . $sql . "<br>" . $GLOBALS['conn']->error;
+      //echo "Error: " . $sql . "<br>" . $GLOBALS['conn']->error;
   }
   }else{
     //show some-kind of error 
@@ -219,7 +223,7 @@ if(isset($_POST['submit'])){
 
     <?php
     if ($messageModal['show']) {
-      echo 'myModal.show();';
+      echo 'myModal.toggle();';
 
     }?>
   </script>
