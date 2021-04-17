@@ -64,8 +64,77 @@ if (isset($_SESSION['uid'])) {
   </div>
 </nav>
 </div>
+
+
   
-    <h1>welcome <?php echo $_SESSION['username']?></h1>
+
+
+<div class="container">
+<h1>welcome <?php echo $_SESSION['username']?></h1>
+
+</div>
+
+<div class="mt-5"></div>
+<div class="mt-5"></div>
+
+<div class="container">
+<h2>Edit Profile</h2>
+<form class="row g-3">
+  <div class="col-md-6">
+    <label for="inputUNAme4" class="form-label">User Name</label>
+    <input type="text" class="form-control" id="inputUName4">
+  </div>
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Alternate Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-12">
+    <label for="inputFName" class="form-label">Full Name</label>
+    <input type="text" class="form-control" id="inputFName">
+  </div>
+ 
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+</div>
+
+
+
+<div class="container mt-5">
+<h2>Password Change</h2>
+<form class="row g-3">
+  <div class="col-md-6">
+    <label for="inputOPass4" class="form-label">Old Password</label>
+    <input type="password" class="form-control" id="inputOPass4">
+  </div>
+  <div class="col-md-6">
+    <label for="inputNPass4" class="form-label">New Password</label>
+    <input type="password" class="form-control" id="inputNPassl4">
+  </div>
+  <div class="col-12">
+    <label for="inputCPass4" class="form-label">Confirm Password</label>
+    <input type="password" class="form-control" id="inputCPass4">
+  </div>
+ 
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Optional JavaScript; choose one of the two! -->
 
