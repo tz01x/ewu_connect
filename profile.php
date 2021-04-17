@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require("helper.php");
 $messageModal=['show'=>FALSE,'title'=>'...','body'=>'...'];
 
 if (isset($_SESSION['uid'])) {
@@ -16,11 +17,45 @@ if (isset($_SESSION['uid'])) {
 
 ?>
 
+<?php
+  $user_data= fetch_data("select username,full_name,alternate_email from user where id=".$_SESSION['uid']);
+
+  if(isset($_POST['update'])){
+    $newName=$_POST['newName'];
+    $newAltMail=$_POST['newAltMail'];
+    $newFullName=$_POST['newFullName'];
+
+    $sql="update user set username='$newName',full_name='$newFullName',alternate_email='$newAltMail' where id=".$_SESSION['uid'];
+       $res=$GLOBALS['conn']->query($sql); 
+
+       if($res===TRUE)
+       {
+
+        header("Location: http://localhost/ewu_connect/profile.php");
+
+        // $messageModal['show']=TRUE;
+        // $messageModal['title']='INFO Updated';
+        // $messageModal['body']="Information Successfully Updated";
+        
+       }
+      else{
+        $messageModal['show']=TRUE;
+        $messageModal['title']='Failed to change';
+        $messageModal['body']="Something went wrong. Please try again!";
+      }
+
+      
+
+
+  }
+?>
+
+
 
 
 <?php
 
-require("helper.php");
+
 
 if(isset($_POST['Password_Change'])){
 
@@ -63,26 +98,6 @@ if($result[0]["password"]==$Old_Password)
 
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -147,27 +162,26 @@ if($result[0]["password"]==$Old_Password)
 
 </div>
 
-<div class="mt-5"></div>
-<div class="mt-5"></div>
 
-<div class="container">
+<div class="container mt-5 ">
 <h2>Edit Profile</h2>
-<form class="row g-3">
+<form method="post" action="" class="row g-3 ">
   <div class="col-md-6">
+
     <label for="inputUNAme4" class="form-label">User Name</label>
-    <input type="text" class="form-control" id="inputUName4">
+    <input type="text " value="<?=$user_data[0]['username']?>" class="form-control" id="inputUName4" name="newName">
   </div>
   <div class="col-md-6">
     <label for="inputEmail4" class="form-label">Alternate Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
+    <input type="email" value="<?=$user_data[0]['alternate_email']?>" class="form-control" id="inputEmail4" name="newAltMail">
   </div>
   <div class="col-12">
     <label for="inputFName" class="form-label">Full Name</label>
-    <input type="text" class="form-control" id="inputFName">
+    <input type="text"value="<?=$user_data[0]['full_name']?>" class="form-control" id="inputFName" name="newFullName">
   </div>
  
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" name="update" >Submit</button>
   </div>
 </form>
 </div>
