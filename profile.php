@@ -1,5 +1,6 @@
 <?php 
 session_start();
+$messageModal=['show'=>FALSE,'title'=>'...','body'=>'...'];
 
 if (isset($_SESSION['uid'])) {
     // continue 
@@ -10,8 +11,80 @@ if (isset($_SESSION['uid'])) {
     header("Location: http://localhost/ewu_connect/login.php");
     die();
 
+
 }
+
 ?>
+
+
+
+<?php
+
+require("helper.php");
+
+if(isset($_POST['Password_Change'])){
+
+
+$Old_Password=$_POST['Old_Password'];
+
+$New_Password=$_POST['New_Password'];
+
+$Confirm_Password=$_POST['Confirm_Password'];
+
+$result= fetch_data("Select password from user where id=".$_SESSION['uid']);
+
+if($result[0]["password"]==$Old_Password)
+   {
+       if( $New_Password== $Confirm_Password )
+       {
+       $sql="update user set password='$Confirm_Password' where id=".$_SESSION['uid'];
+       $res=$GLOBALS['conn']->query($sql); 
+       if($res===TRUE)
+       {
+
+
+
+        $messageModal['show']=TRUE;
+        $messageModal['title']='Password Changed Succesfully!';
+        $messageModal['body']="We have updated your password. Please use the new password from now on!";
+       }
+      else{
+        $messageModal['show']=TRUE;
+        $messageModal['title']='Failed to change Password!';
+        $messageModal['body']="Something went wrong. Please try again!";
+      }
+
+
+   }
+  }
+}
+
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!doctype html>
@@ -103,34 +176,40 @@ if (isset($_SESSION['uid'])) {
 
 <div class="container mt-5">
 <h2>Password Change</h2>
-<form class="row g-3">
+<form  method="post" action="" class="row g-3">
   <div class="col-md-6">
     <label for="inputOPass4" class="form-label">Old Password</label>
-    <input type="password" class="form-control" id="inputOPass4">
+    <input type="password" class="form-control" id="inputOPass4" name="Old_Password">
   </div>
   <div class="col-md-6">
     <label for="inputNPass4" class="form-label">New Password</label>
-    <input type="password" class="form-control" id="inputNPassl4">
+    <input type="password" class="form-control" id="inputNPassl4" name="New_Password">
   </div>
   <div class="col-12">
     <label for="inputCPass4" class="form-label">Confirm Password</label>
-    <input type="password" class="form-control" id="inputCPass4">
+    <input type="password" class="form-control" id="inputCPass4" name="Confirm_Password">
   </div>
  
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" name="Password_Change" class="btn btn-primary">Change Password</button>
   </div>
 </form>
 </div>
 
+<div class="modal fade" id="myModal55" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><?=$messageModal['title']?></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><?=$messageModal['body']?></p>
+        </div>
 
-
-
-
-
-
-
-
+      </div>
+    </div>
+  </div>
 
 
 
@@ -146,5 +225,22 @@ if (isset($_SESSION['uid'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
+
+    <script>
+    var myModal = new bootstrap.Modal(document.getElementById('myModal55'), {});
+
+    <?php
+    if ($messageModal['show']) {
+      echo 'myModal.toggle();';
+
+    }?>
+  </script>
+
+
+
+
+
+
+
   </body>
 </html>
