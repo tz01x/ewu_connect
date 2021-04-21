@@ -53,7 +53,19 @@ height: 100vh;
    <div class="col-sm-4 e">
     
     <div>
-    view my comunity 
+    <u>
+   
+      <?php 
+          $data=fetch_data("select community_name,id from community ");
+          for($i=0;$i<count($data);$i++){
+      ?>
+        <li>
+        <a href="./community.php?community_name=<?=$data[$i]['community_name'];?>&&communiy_id=<?=$data[$i]['id'];?>"><?=$data[$i]['community_name'];?></a>
+        </li>
+      <?php
+     } 
+    ?>
+      </u>
     </div>
 
     <div>

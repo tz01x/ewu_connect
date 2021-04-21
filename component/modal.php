@@ -5,8 +5,6 @@ if ( isset($messageModal)){
 }else{
     $messageModal=['show'=>FALSE,'title'=>'...','body'=>'...'];
 }
-
-
 ?>
 
   <!-- Modal -->

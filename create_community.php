@@ -5,6 +5,27 @@ LoginCheck();
 
 ?>
 
+<?php
+
+if(isset($_POST['create_community'])){
+    $community_name=$_POST['community_name'];
+    $about=$_POST['about'];
+
+    $res=insert_data("INSERT into community (community_name,about,user_id,cover_photo_url,logo_url) values('$community_name','$about',".$_SESSION['uid'].",'./asset/img/default_cover.jpg','./asset/img/defualt_logo.jpg' )");
+
+    if($res['status']){
+
+        // echo "good";
+        redirect('http://localhost/ewu_connect/create_community.php');
+    }else{
+        // echo "bad";
+        
+
+    }
+}
+
+?>
+
 
 <!doctype html>
 <html lang="en">
@@ -25,8 +46,52 @@ LoginCheck();
   <?php require_once('component/nav.php'); ?>
   
 
+    <div class="container ">
 
+    <div class="display-2">Create new community</div>
 
+    <div class="jumbotron row ">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+    
+    <form  method="post" action="" class="needs-validation" novalidate>
+
+    <div class="form-row">
+    <div class="">
+      <label for="validationTooltip01">Community Name</label>
+      <input type="text" class="form-control" id="validationTooltip01" name="community_name" placeholder="Enter Community Name"  required>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+      <div class="invalid-tooltip">
+          Please choose a unique and valid Community name.
+        </div>
+    </div>
+    </div>
+    <div class="form-row">
+    <div class="">
+      <label for="validationTooltip01">About</label>
+      <!-- <input type="text"  class="form-control" id="validationTooltip01"  name="about" placeholder="About"  required> -->
+      <textarea name="about" id="validationTooltip01"  class="form-control" cols="10" rows="5" required></textarea>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+      <div class="invalid-tooltip">
+          
+        </div>
+    </div>
+    </div>
+
+    <input type="submit" class="mt-3 btn btn-primary"name="create_community" value="Create">
+   
+    </form>
+
+    
+    </div>
+    <div class="col-sm-4"></div>
+    </div>
+
+    </div>
 
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

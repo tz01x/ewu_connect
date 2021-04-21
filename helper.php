@@ -1,11 +1,21 @@
 <?php 
 require("conn/db.php");
 
+function insert_data($sql){
+  $res=$GLOBALS['conn']->query($sql);
+  if($res==TRUE){
+    return ['status'=>True,'id'=>$GLOBALS['conn']->insert_id];
+  }else{
+    return ['status'=>False,'details'=>$GLOBALS['conn']->error];
+  }
+
+}
 function fetch_data($sql) {
     $result = $GLOBALS['conn']->query($sql);
     if ($result->num_rows > 0) {
         $data = mysqli_fetch_all($result,MYSQLI_ASSOC);
         return $data;
+        
     }else{
       echo $GLOBALS['conn']->error;
       return  array( );
