@@ -11,7 +11,7 @@ if(isset($_GET['token'])){
         return;
 
     }
-    print_r($velidity);
+    //print_r($velidity);
     $sql='update user set is_active=1 where id='.$velidity['uid'];
     $res=$GLOBALS['conn']->query($sql);
     if($res===TRUE){

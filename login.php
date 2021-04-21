@@ -1,6 +1,6 @@
 <?php 
 require("helper.php");
-
+session_start();
 if(isset($_POST['submit'])){
 
 
@@ -53,41 +53,22 @@ if($data[0]['password']==$password){
   <body>
     
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">EWU-CONNECT</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/index.php">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="http://localhost/ewu_connect/signup.php">Sign Up</a>
-        </li>
-        
-      
-        
+  <!-- nav var  -->
+  <?php require_once('component/nav.php'); ?>
   
-      
-       
-      </ul>
-      
-    </div>
-  </div>
-</nav>
 
 
 
     
 
-        <div class="container">
-        <h1>Login page </h1>
+        <div class="container ">
+      
 
 
-        
+        <div class="row">
+      <div class="col-sm"></div>
+      <div class="col-md">
+      <h1>Login page </h1>
             <form method="post" action="">
             <div class="form-floating mb-3">
             <input type="text" class="form-control" name="username" id="username" placeholder="Username">
@@ -102,6 +83,12 @@ if($data[0]['password']==$password){
 
             <button type="submit" name="submit" class="btn btn-primary btn-lg">login </button>
             </form>
+            </div>
+
+      <div class="col-sm"></div>
+
+
+    </div>
 
 
         </div>

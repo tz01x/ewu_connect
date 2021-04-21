@@ -25,6 +25,7 @@ function fetch_data($sql) {
 
   function verifyToken($token){
     $ptext=hex2bin($token);
+    //id.username.ttl
     $data= (preg_split('/[.]/',$ptext));
     $len = count($data);
     
@@ -32,7 +33,7 @@ function fetch_data($sql) {
       return ['status'=>FALSE,'details'=>'invalid token!'];
     }
     $exp_time_in_second=$data[$len-1];
-    if(intval($exp_time_in_second)<intval(time())){
+    if(intval($exp_time_in_second)<(time())){
       // echo(' expire !' . "<br>");
       return ['status'=>FALSE,'details'=>"Token has expaired",'expired_time'=>$exp_time_in_second];
 
@@ -47,6 +48,19 @@ function fetch_data($sql) {
 
   function getHost(){
     return $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME']."/ewu_connect";
+  }
+
+
+  function LoginCheck(){
+
+    if (!isset($_SESSION['uid'])) {
+      
+      header("Location: http://localhost/ewu_connect/login.php");
+  }
+  }
+
+  function redirect($url){
+    header("Location: $url");
   }
 
 

@@ -11,7 +11,7 @@ require './PHPMailer/src/SMTP.php';
 
  function send_mail($address,$email_subject,$email_body)
 {
-    //Instantiation and passing `true` enables exceptions
+//Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
 try {
     $mail->isSMTP();                                            //Send using SMTP

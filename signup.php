@@ -1,6 +1,7 @@
 <?php 
 require("helper.php");
 require('mailer.php');
+session_start();
 $messageModal=['show'=>FALSE,'title'=>'...','body'=>'...'];
 
 
@@ -32,6 +33,7 @@ if(isset($_POST['submit'])){
       
       </p>
       ');
+      
       $messageModal['show']=TRUE;
       $messageModal['title']='Account been created !';
       $messageModal['body']="We have send a varify mail to your email address, Please check in order to active your account!";
@@ -42,6 +44,10 @@ if(isset($_POST['submit'])){
     
       
     } else {
+      $messageModal['show']=TRUE;
+      $messageModal['title']='invalid information !';
+      $messageModal['body']="Your email isn't unique,";
+  
       //echo "Error: " . $sql . "<br>" . $GLOBALS['conn']->error;
   }
   }else{
@@ -62,14 +68,16 @@ if(isset($_POST['submit'])){
   //  return  a  array that contain patten finding resualt {true or false } and username
   //  echo $email;
 
-   $pattern = "/(@std.ewubd.edu)|(@ewubd.edu)/i";
+   $pattern = "/(@std.ewubd.edu)|(@ewubd.edu)/";
    if(preg_match($pattern, $email)){
+     //2018-1-60-665@std.ewubd.edu
     $username="";
     for ($i=0; $i < strlen($email); $i++) { 
       if($email[$i]=='@'){
         break;
       }
       // string concatenation 
+
       $username=$username.$email[$i];
     
 
@@ -101,53 +109,9 @@ if(isset($_POST['submit'])){
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">EWU Connect</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/login.php">Login Page</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/signup.php">Sign Up
-              Page</a>
-          </li>
-
-          <?php
-         
-        session_start();
-            if(isset($_SESSION['uid'])){
-              echo'<li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/profile.php">Profile Page</a>
-          
-            </li>';
-            }
-
-
-        ?>
-
-          <li class="nav-item">
-            <?php
-         
-         //session_start();
-             if(isset($_SESSION['uid'])){
-               echo'<li class="nav-item">
-               <a class="nav-link active" aria-current="page" href="http://localhost/ewu_connect/logout.php">Logout</a>
-           
-             </li>';
-             }
-         ?>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- nav var  -->
+  <?php require_once('component/nav.php'); ?>
+  
   </div>
 
 
