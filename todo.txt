@@ -1,0 +1,4 @@
+#TODO
+*add public / private option when community in created 
+*add post form  
+*post createtion macanisum 

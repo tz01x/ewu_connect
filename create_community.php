@@ -16,7 +16,7 @@ if(isset($_POST['create_community'])){
     if($res['status']){
 
         // echo "good";
-        redirect('http://localhost/ewu_connect/create_community.php');
+        redirect('http://localhost/ewu_connect/community.php?community_id='.$res['id'].'&&community_name='.$community_name);
     }else{
         // echo "bad";
         
