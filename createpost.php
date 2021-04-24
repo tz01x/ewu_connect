@@ -74,6 +74,7 @@ if (isset($_POST['submit'])) {
                 $file_name=$pfiles['name'][$i];
                 $file_url='./media/'.$file_name;
                 move_uploaded_file($target_file,$file_url);
+                
         
                 $res=insert_data("INSERT into `file` (file_type,file_name,url,post_id) values('$file_type','$file_name','$file_url',$post_id)");
                 if($res['status']){
@@ -100,7 +101,7 @@ if (isset($_POST['submit'])) {
             break;
         }
     }
-    redirect(getHost()."./community.php/?c=$cname");
+    redirect(getHost()."/community.php/?c=$cname");
 
 }
 

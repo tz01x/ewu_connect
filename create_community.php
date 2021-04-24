@@ -22,14 +22,34 @@ if(isset($_POST['create_community'])){
 
       }
      
-    
-
-
+  
   
     $about=$_POST['about'];
     $public=$_POST['public'];
+    $cover_photo_url=getHost()."/asset/img/default_cover.jpg";
+    $avater_photo_url=getHost()."/asset/img/defualt_logo.jpg";
 
-    $res=insert_data("INSERT into community (community_name,tag_name,about,public,user_id,cover_photo_url,logo_url) values('$community_name','$community_tag_name','$about','$public',".$_SESSION['uid'].",'./asset/img/default_cover.jpg','./asset/img/defualt_logo.jpg' )");
+    if(isset($_FILES['cover_photo'])){
+      $cover_photo=$_FILES['cover_photo'];
+      $target_file=$cover_photo['tmp_name'];
+      $cover_photo_url='./media/'.$cover_photo['name'];
+      move_uploaded_file($target_file,$cover_photo_url);
+
+    }
+    if(isset($_FILES['avater_photo'])){
+      $avater_photo=$_FILES['avater_photo'];
+      $target_file=$avater_photo['tmp_name'];
+      $avater_photo_url='./media/'.$avater_photo['name'];
+      move_uploaded_file($target_file,$avater_photo_url);
+
+
+    }
+
+
+
+    $res=insert_data("INSERT into community (community_name,tag_name,about,public,user_id,cover_photo_url,logo_url) 
+    values('$community_name','$community_tag_name','$about','$public',".$_SESSION['uid'].",'$cover_photo_url',
+    '$avater_photo_url' )");
 
     if($res['status']){
         $cid=$res['id'];
@@ -75,7 +95,7 @@ if(isset($_POST['create_community'])){
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
     
-    <form  method="post" action="" class="needs-validation" novalidate>
+    <form  method="post" action="" class="needs-validation" enctype="multipart/form-data" novalidate>
 
     <div class="form-row">
     <div class="">
@@ -112,8 +132,15 @@ if(isset($_POST['create_community'])){
       </select>
     </div>
 
+    <div class="mb-3">
+            <label for="formFileMultiple1" class="form-label">Cover photo</label>
+            <input class="form-control" type="file" name="cover_photo" id="formFileMultiple1" accept="image/png, image/jpeg" >
+    </div>
+    <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Avatar photo</label>
+            <input class="form-control" type="file" name="avater_photo" id="formFileMultiple" accept="image/png, image/jpeg" >
+    </div>
     <input type="submit" class="mt-3 btn btn-primary"name="create_community" value="Create">
-   
     </form>
 
     

@@ -76,37 +76,53 @@ if(isset($_POST['join_to_community'])){
 
   <title><?=$community_name?></title>
   <style>
-  .vote_btns{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    align-content: center;
-    align-items: center;
-    cursor: pointer;
+    .vote_btns {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      align-content: center;
+      align-items: center;
+      cursor: pointer;
 
-    border-left: 10px solid;
-    border-right: 0.5px solid darkslategray;
-  }
-  .vote_btns.up{
+      border-left: 10px solid;
+      border-right: 0.5px solid darkslategray;
+    }
 
-  }
-  .vote_btns.down{
-    
-  }
-  .post-img{
+    .vote_btns.up {}
 
-    margin-top: 21px;
-  }
-  .community-title{
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
+    .vote_btns.down {}
 
-  }
-  .community-title form{
-    margin:10px;
-  }
+    .post-img {
+
+      margin-top: 21px;
+    }
+
+    .community-title {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      position: relative;
+      top: -27px;
+      left: 12px;
+
+    }
+
+    .community-title form {
+      margin: 10px;
+    }
+
+    .logo-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 51px;
+      margin-right: 19px;
+    }
+
+    .community-name {
+      font-weight: 400;
+      text-shadow: -1px 1px 1px black;
+    }
   </style>
 </head>
 
@@ -114,21 +130,23 @@ if(isset($_POST['join_to_community'])){
   <?php require_once('component/nav.php'); ?>
   <div class="container">
     <div class="coverPic">
-      <img class="cover" src="resources/banner.jpg" alt="">
+      <img class="cover" style="object-fit: cover;" src="<?=$community_obj[0]['cover_photo_url']?>" alt="">
     </div>
   </div>
 
   <div class="container">
     <div class=" community-title">
-      
-      <div class="display-6"><?=$community_name?> </div>
+
+      <img src="<?=$community_obj[0]['logo_url']?>" class="logo-pic" style="" alt="">
+
+      <div class="display-6 community-name"><?=$community_name?> </div>
 
 
       <?php 
       if(!$is_connected_user){
         ?>
-      <form method="post"  action="">
-      <button type="submit" class="btn btn-outline-secondary" name="join_to_community">join</button>
+      <form method="post" action="">
+        <button type="submit" class="btn btn-outline-secondary" name="join_to_community">join</button>
       </form>
       <?php }?>
 
@@ -155,75 +173,77 @@ if(isset($_POST['join_to_community'])){
 
   <div class="container">
     <!-- laft side for post-->
-  
+
 
     <div class="row">
-    <div class="col-md-8 ">
+      <div class="col-md-8 ">
 
-    <!-- create post section  -->
-    <div class="card mb-3">
-    <div class="card-body" style="cursor: pointer;" onclick="goToCreatePostPage()"> 
-    <div  style=
-    "display: flex;
+        <!-- create post section  -->
+        <div class="card mb-3">
+          <div class="card-body" style="cursor: pointer;" onclick="goToCreatePostPage()">
+            <div style="display: flex;
     align-items: baseline;
     justify-content: space-between;
     flex-direction: row; ">
-    
-      <h5 class="card-title">Create Post</h5>
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
-        <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
-        </svg>
-      </div> 
-    </div>
-    
-    </div>
-    </div>
-    <!-- end create post section  -->
 
-      <?php
-      $getpost=fetch_data("select post.id as pid,title,text,date,user.id as uid,username  from post,user where community_id=$communiy_id and post.user_id=user.id");
-      for ($i=0; $i < count($getpost); $i++) { 
-       
-      
-      ?>
-
-      <div class="card mb-3" style="">
-        <div class="row g-0">
-          <div class="col-sm-1   vote_btns">
-
-            <div class="up">up</div>
-            <div class="down">down</div>
-             
-          </div>
-          <div class="col-md-8  ">
-            <div class="card-body">
+              <h5 class="card-title">Create Post</h5>
               <div>
-              <small>Posted by <a href=""><?=$getpost[$i]['username']?></a></small>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-images"
+                  viewBox="0 0 16 16">
+                  <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                  <path
+                    d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z" />
+                </svg>
               </div>
-              <h5 class="card-title"><?=$getpost[$i]['title']?></h5>
-              <p class="card-text"><?=$getpost[$i]['text']?></p>
-              <p class="card-text"><small class="text-muted">Last updated <?=$getpost[$i]['date']?></small></p>
             </div>
+
           </div>
-          <div class="col-md-2 ">
-            <?php 
+        </div>
+        <!-- end create post section  -->
+
+            <?php
+            $getpost=fetch_data("select post.id as pid,title,text,date,user.id as uid,username  from post,user where community_id=$communiy_id and post.user_id=user.id");
+            for ($i=0; $i < count($getpost); $i++) { 
+
+
+            ?>
+
+        <div class="card mb-3" style="">
+          <div class="row g-0">
+            <div class="col-sm-1   vote_btns">
+
+              <div class="up">up</div>
+              <div class="down">down</div>
+
+            </div>
+            <div class="col-md-8  ">
+              <div class="card-body">
+                <div>
+                  <small>Posted by <a href=""><?=$getpost[$i]['username']?></a></small>
+                </div>
+                <h5 class="card-title"><?=$getpost[$i]['title']?></h5>
+                <p class="card-text"><?=$getpost[$i]['text']?></p>
+                <p class="card-text"><small class="text-muted">Last updated <?=$getpost[$i]['date']?></small></p>
+              </div>
+            </div>
+            <div class="col-md-2 ">
+              <?php 
             $pid=$getpost[$i]['pid'];
             $files=fetch_data("select * from file where post_id=$pid");
             if(count($files)!=0){
              if(preg_match('/image/',$files[0]['file_type'])){
               //  image file type
-              $img_url=getHost().$files[0]['url'];
+              $img_url=$files[0]['url'];
               echo'<img src="'.$img_url.'" class="img-fluid post-img" alt="" srcset="">';
 
              }else{
                //application file type /pdf /dox 
                echo '
-               <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-file-earmark-binary mt-3       " viewBox="0 0 16 16">
+               <svg xmlns="http://www.w3.org/2000/svg" width="100" height="50" fill="currentColor" class="bi bi-file-earmark-binary mt-3       " viewBox="0 0 16 16">
                 <path d="M7.05 11.885c0 1.415-.548 2.206-1.524 2.206C4.548 14.09 4 13.3 4 11.885c0-1.412.548-2.203 1.526-2.203.976 0 1.524.79 1.524 2.203zm-1.524-1.612c-.542 0-.832.563-.832 1.612 0 .088.003.173.006.252l1.559-1.143c-.126-.474-.375-.72-.733-.72zm-.732 2.508c.126.472.372.718.732.718.54 0 .83-.563.83-1.614 0-.085-.003-.17-.006-.25l-1.556 1.146zm6.061.624V14h-3v-.595h1.181V10.5h-.05l-1.136.747v-.688l1.19-.786h.69v3.633h1.125z"/>
                 <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
               </svg>
+              <small>'.$files[0]['file_name'].'</small>
                
                ';
              }
@@ -234,49 +254,50 @@ if(isset($_POST['join_to_community'])){
             
             ?>
 
-            
+
+            </div>
           </div>
         </div>
+            <?php
+          }
+          ?>
+
       </div>
-      <?php
-       }
-      ?>
 
-    </div>
-
-    <!--end col9-->
+      <!--end col9-->
 
 
 
-    <!--right side -->
-    <div class="col-sm-4 ">
-      
+      <!--right side -->
+      <div class="col-sm-4 ">
 
-      <div class="card border-secondary mb-3" style="max-width: 18rem;">
-        <div class="card-header">ABOUT</div>
-        <div class="card-body text-secondary">
-        <p>
-          <?=$community_obj[0]['about']?>
-        </p>
-        <small>🍰 Created : <?=$community_obj[0]['created']?></small>
+
+        <div class="card border-secondary mb-3" style="max-width: 18rem;">
+          <div class="card-header">ABOUT</div>
+          <div class="card-body text-secondary">
+            <p>
+              <?=$community_obj[0]['about']?>
+            </p>
+            <hr>
+            <small>🍰 Created : <?=$community_obj[0]['created']?></small>
+          </div>
         </div>
-      </div>
 
 
-      <!--  -->
+        <!--  -->
 
-      <div class="card border-secondary mb-3" style="max-width: 18rem;">
-        <div class="card-header">Rules</div>
-        <div class="card-body text-secondary">
+        <div class="card border-secondary mb-3" style="max-width: 18rem;">
+          <div class="card-header">Rules</div>
+          <div class="card-body text-secondary">
 
-        <!-- rules gouse here  -->
-          
+            <!-- rules gouse here  -->
+
+          </div>
         </div>
+
       </div>
 
-    </div>
-
-    <!--end col9-->
+      <!--end col9-->
     </div>
     <!-- row end -->
 
@@ -308,14 +329,13 @@ if(isset($_POST['join_to_community'])){
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
   </script>
 
-        <script>
-        
-        function goToCreatePostPage(){
+  <script>
+    function goToCreatePostPage() {
 
-          window.location.assign("<?php echo getHost();?>./createpost.php?c=<?=$community_tag_name?>");
-        }
-        </script>
+      window.location.assign("<?php echo getHost();?>./createpost.php?c=<?=$community_tag_name?>");
+    }
+  </script>
 
 </body>
 
-</html>       
+</html>
