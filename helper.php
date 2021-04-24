@@ -62,7 +62,7 @@ function fetch_data($sql) {
 
 
   function LoginCheck(){
-
+    // if the session uid not set then go to login page 
     if (!isset($_SESSION['uid'])) {
       
       header("Location: http://localhost/ewu_connect/login.php");
@@ -71,6 +71,17 @@ function fetch_data($sql) {
 
   function redirect($url){
     header("Location: $url");
+  }
+
+  function redirect_with_interval($msg,$url){
+  
+        echo "<h1>$msg</h1>
+        <script>
+            setInterval(() => {
+                window.location.assign('$url');
+            }, 1000);
+        </script>
+        ";
   }
 
 

@@ -9,16 +9,37 @@ LoginCheck();
 
 if(isset($_POST['create_community'])){
     $community_name=$_POST['community_name'];
-    $about=$_POST['about'];
+    //lowercase every char and remove white space in between  
+    $community_tag_name=join("",preg_split("/ /",strtolower($community_name)));
+    
 
-    $res=insert_data("INSERT into community (community_name,about,user_id,cover_photo_url,logo_url) values('$community_name','$about',".$_SESSION['uid'].",'./asset/img/default_cover.jpg','./asset/img/defualt_logo.jpg' )");
+      $dose_exist=fetch_data("select id from community where tag_name='$community_tag_name'");
+      
+      if(count($dose_exist)!=0){
+       
+        redirect_with_interval('this community name alreaday exits !',getHost().'./create_community.php');
+        return;
+
+      }
+     
+    
+
+
+  
+    $about=$_POST['about'];
+    $public=$_POST['public'];
+
+    $res=insert_data("INSERT into community (community_name,tag_name,about,public,user_id,cover_photo_url,logo_url) values('$community_name','$community_tag_name','$about','$public',".$_SESSION['uid'].",'./asset/img/default_cover.jpg','./asset/img/defualt_logo.jpg' )");
 
     if($res['status']){
-
-        // echo "good";
-        redirect('http://localhost/ewu_connect/community.php?community_id='.$res['id'].'&&community_name='.$community_name);
+        $cid=$res['id'];
+        // make curret user admin to this group 
+        insert_data("insert into community_users (community_id,user_id,approveed) values('$cid',".$_SESSION['uid'].",1)");
+        
+        redirect('http://localhost/ewu_connect/community.php?c='.$community_tag_name);
     }else{
-        // echo "bad";
+        
+        echo 'something wrong !, '.$res['details'];
         
 
     }
@@ -78,8 +99,17 @@ if(isset($_POST['create_community'])){
       </div>
       <div class="invalid-tooltip">
           
-        </div>
+      </div>
     </div>
+    </div>
+
+    <div class="input-group mt-3">
+      <label class="input-group-text" for="inputGroupSelect01">Public group? </label>
+      <select class="form-select" name="public" id="inputGroupSelect01">
+        <option selected>Choose...</option>
+        <option value="1">yes</option>
+        <option value="0">no</option>
+      </select>
     </div>
 
     <input type="submit" class="mt-3 btn btn-primary"name="create_community" value="Create">
