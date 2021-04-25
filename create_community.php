@@ -55,8 +55,8 @@ if(isset($_POST['create_community'])){
         $cid=$res['id'];
         // make curret user admin to this group 
         insert_data("insert into community_users (community_id,user_id,approveed) values('$cid',".$_SESSION['uid'].",1)");
-        
-        redirect('http://localhost/ewu_connect/community.php?c='.$community_tag_name);
+        $get_host=getHost();
+        redirect($get_host.'/community.php?c='.$community_tag_name);
     }else{
         
         echo 'something wrong !, '.$res['details'];

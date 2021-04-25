@@ -63,9 +63,10 @@ function fetch_data($sql) {
 
   function LoginCheck(){
     // if the session uid not set then go to login page 
+    $get_host=getHost();
     if (!isset($_SESSION['uid'])) {
       
-      header("Location: http://localhost/ewu_connect/login.php");
+      header("Location: $get_host/ewu_connect/login.php");
   }
   }
 

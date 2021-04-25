@@ -16,7 +16,8 @@ if($data[0]['password']==$password){
     // user can login 
     $_SESSION['uid']=$data[0]['id'];
     $_SESSION['username']=$data[0]['username'];
-    echo "<script>window.location.assign('http://localhost/ewu_connect/profile.php');</script>  ";
+    $get_host=getHost();
+    echo "<script>window.location.assign('$$get_host/profile.php');</script>  ";
     // go to index page 
 }else {
   echo "<script>alert('password dont match')</script>  ";

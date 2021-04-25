@@ -22,8 +22,8 @@ LoginCheck();
 
        if($res===TRUE)
        {
-
-        header("Location: http://localhost/ewu_connect/profile.php");
+        $get_host=getHost();
+        header("Location: $get_host/profile.php");
 
         // $messageModal['show']=TRUE;
         // $messageModal['title']='INFO Updated';
