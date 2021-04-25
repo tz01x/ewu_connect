@@ -5,28 +5,35 @@ ALTER TABLE `user` ADD `is_active` BOOLEAN NOT NULL AFTER `full_name`;
 
 ***************************************************
 
-CREATE TABLE `ewu_connect`.`community` ( `id` INT NOT NULL AUTO_INCREMENT ,  `comunity_name` VARCHAR(500) NOT NULL ,  `about` VARCHAR(500) NOT NULL ,  `cover_photo_url` VARCHAR(500) NULL DEFAULT NULL ,  `logo_url` VARCHAR(500) NULL DEFAULT NULL ,  `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+CREATE TABLE `ewu_connect`.`community` ( `id` INT NOT NULL AUTO_INCREMENT ,  `community_name` VARCHAR(500) NOT NULL ,  `about` VARCHAR(500) NOT NULL ,  `cover_photo_url` VARCHAR(500) NULL DEFAULT NULL ,  `logo_url` VARCHAR(500) NULL DEFAULT NULL ,  `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+ALTER TABLE `community` ADD `user_id` INT NOT NULL AFTER `public`;
 
-ALTER TABLE `community` ADD `tag_name` INT NOT NULL AFTER `user_id`;
+ALTER TABLE `community` ADD `tag_name` INT NOT NULL AFTER;
 ALTER TABLE `community` CHANGE `tag_name` `tag_name` VARCHAR(5000) NOT NULL;
+
 CREATE TABLE `ewu_connect`.`community_users` ( `community_id` INT NOT NULL ,  `user_id` INT NOT NULL ,  `joined` DATETIME NOT NULL ,  `approveed` BOOLEAN NOT NULL DEFAULT FALSE ) ENGINE = InnoDB;
 ​ALTER TABLE community_users ADD FOREIGN KEY (community_id) REFERENCES community(id) on DELETE cascade;
-ALTER TABLE community_users ADD FOREIGN KEY (user_id) REFERENCES user(id) on DELETE no action
+ALTER TABLE community_users ADD FOREIGN KEY (user_id) REFERENCES user(id) on DELETE no action;
 ALTER TABLE `community_users` CHANGE `joined` `joined` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE community ADD FOREIGN KEY (user_id) REFERENCES user(id)
+
+
+
+ALTER TABLE community ADD FOREIGN KEY (user_id) REFERENCES user(id);
 
 CREATE TABLE `ewu_connect`.`post` ( `id` INT NOT NULL AUTO_INCREMENT , `date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP , `title` VARCHAR(500) NOT NULL , `text` VARCHAR(2000) NOT NULL , `link` VARCHAR(500) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
-ALTER TABLE `post` ADD `community_id` INT NOT NULL AFTER `user_id`
+ALTER TABLE `post` ADD `community_id` INT NOT NULL AFTER `user_id`;
 ​ALTER table post add foreign key (user_id) references user(id) on DELETE no action;
 
 CREATE TABLE `ewu_connect`.`file` ( `file_type` VARCHAR(500) NOT NULL , `url` VARCHAR(500) NOT NULL , `post_id` INT NOT NULL , `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB;
-ALTER TABLE file add CONSTRAINT foreign key (post_id) references post(id) on DELETE cascade
+ALTER TABLE file add CONSTRAINT foreign key (post_id) references post(id) on DELETE cascade;
 ALTER TABLE `file` ADD `file_name` VARCHAR(5000) NOT NULL AFTER `id`;
 
-ALTER TABLE post add constraint foregin key (community_id) references community(id) ON DELETE cascade;
+ALTER TABLE post add constraint FOREIGN KEY (community_id) references community(id) ON DELETE cascade;
 ALTER TABLE `post` CHANGE `link` `link` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
 ALTER TABLE `post` CHANGE `date` `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE `post` ADD `public` BOOLEAN NOT NULL DEFAULT TRUE AFTER `community_id`;
+
+
 ALTER TABLE `community` ADD `public` BOOLEAN NOT NULL  DEFAULT '1' AFTER `tag_name`;
 
 
