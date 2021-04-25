@@ -7,10 +7,11 @@ require ("settings.php");
         $database="ewu_connect";
 
     }else{
-        $server = "192.168.0.172";
-        $username = "epiz_28006799";
-        $password = "h89wlcSXk0";
-        $database = "epiz_28006799_test_001";
+        $server = "sql204.epizy.com";
+        $username = "epiz_28465196";
+        $password = "aESF0fAA7YosrJ";
+        $database = "epiz_28465196_ewu_connect";
+        $post='3306';
     }
     
 
@@ -18,7 +19,7 @@ require ("settings.php");
 
 // Create connection
 //$conn = new mysqli($server, $username, $password, $database,"3306");
-$conn = new mysqli($server, $username, $password, $database);
+$conn = new mysqli($server, $username, $password, $database,$port);
 // Check connection
 
 if ($conn->connect_error) {
