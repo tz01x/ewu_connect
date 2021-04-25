@@ -17,7 +17,7 @@ if($data[0]['password']==$password){
     $_SESSION['uid']=$data[0]['id'];
     $_SESSION['username']=$data[0]['username'];
     $get_host=getHost();
-    echo "<script>window.location.assign('$$get_host/profile.php');</script>  ";
+    echo "<script>window.location.assign('$get_host/profile.php');</script>  ";
     // go to index page 
 }else {
   echo "<script>alert('password dont match')</script>  ";

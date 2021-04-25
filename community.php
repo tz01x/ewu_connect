@@ -332,7 +332,7 @@ if(isset($_POST['join_to_community'])){
   <script>
     function goToCreatePostPage() {
 
-      window.location.assign("<?php echo getHost();?>./createpost.php?c=<?=$community_tag_name?>");
+      window.location.assign("<?php echo getHost();?>/createpost.php?c=<?=$community_tag_name?>");
     }
   </script>
 

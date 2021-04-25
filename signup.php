@@ -25,14 +25,14 @@ if(isset($_POST['submit'])){
      
       $token=generateToken($GLOBALS['conn']->insert_id,$username); // generate token 
       $get_host=getHost()."/vfuser.php/?token=$token";
-      send_mail($email,'Welcome to EWU-Connect, you are one setp way to connect with us!','
-      <p>
-      dear '.$username.',
-      Open the urls to verify your account <a href="'.$get_host.'">'.$get_host.'</a>
+      // send_mail($email,'Welcome to EWU-Connect, you are one setp way to connect with us!','
+      // <p>
+      // dear '.$username.',
+      // Open the urls to verify your account <a href="'.$get_host.'">'.$get_host.'</a>
 
       
-      </p>
-      ');
+      // </p>
+      // ');
       
       $messageModal['show']=TRUE;
       $messageModal['title']='Account been created !';

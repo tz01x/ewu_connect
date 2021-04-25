@@ -35,7 +35,7 @@ $host_name=$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME']."/ewu_connec
          //session_start();
              if(isset($_SESSION['uid'])){
                echo'<li class="nav-item">
-               <a class="nav-link active" aria-current="page" href="'.$host_name.'ewu_connect/logout.php">Logout</a>
+               <a class="nav-link active" aria-current="page" href="'.$host_name.'/logout.php">Logout</a>
            
              </li>';
              }

@@ -97,7 +97,7 @@ if (isset($_POST['submit'])) {
     $cname="";
     for($i=0;$i<count($all_communitys);$i++){
         if($community_id==$all_communitys[$i]['id']){
-            $cname=$all_communitys[$i]['community_name'];
+            $cname=$all_communitys[$i]['tag_name'];
             break;
         }
     }

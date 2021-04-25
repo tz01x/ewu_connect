@@ -66,7 +66,7 @@ function fetch_data($sql) {
     $get_host=getHost();
     if (!isset($_SESSION['uid'])) {
       
-      header("Location: $get_host/ewu_connect/login.php");
+      header("Location: $get_host/login.php");
   }
   }
 
