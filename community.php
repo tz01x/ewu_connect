@@ -59,6 +59,26 @@ if(isset($_POST['join_to_community'])){
 
 ?>
 
+<!-- Leave community -->
+<?php
+  if(isset($_POST['leave_community'])){
+    LoginCheck();
+    if(!$is_connected_user){
+      return;
+    }
+    $res= insert_data(" DELETE FROM community_users WHERE user_id=".$_SESSION['uid']." AND community_id=".$community_obj[0]['id']."");
+    
+    if($res['status']){
+  
+      echo "<script> window.location.assign('');</script> hii ";
+  
+    }else{
+     
+    }
+  
+  }
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -141,12 +161,22 @@ if(isset($_POST['join_to_community'])){
 
       <div class="display-6 community-name"><?=$community_name?> </div>
 
-
+      <!-- Join community -->
       <?php 
       if(!$is_connected_user){
         ?>
       <form method="post" action="">
         <button type="submit" class="btn btn-outline-secondary" name="join_to_community">join</button>
+      </form>
+      <?php }?>
+
+      <!-- Leave Community -->
+
+      <?php 
+      if($is_connected_user){
+        ?>
+      <form method="post" action="">
+        <button type="submit" class="btn btn-outline-secondary" name="leave_community">Leave</button>
       </form>
       <?php }?>
 
@@ -269,6 +299,10 @@ if(isset($_POST['join_to_community'])){
 
 
       <!--right side -->
+      <!--About session -->
+
+      
+     
       <div class="col-sm-4 ">
 
 
@@ -278,6 +312,11 @@ if(isset($_POST['join_to_community'])){
             <p>
               <?=$community_obj[0]['about']?>
             </p>
+            <form method="post" action="">
+            
+  
+          <button type="submit" class="btn btn-primary">Update About</button>
+        </form>
             <hr>
             <small>🍰 Created : <?=$community_obj[0]['created']?></small>
           </div>

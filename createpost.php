@@ -94,14 +94,15 @@ if (isset($_POST['submit'])) {
 
     }//end of loop 
 
-    $cname="";
+    $community_tag_name="";
     for($i=0;$i<count($all_communitys);$i++){
         if($community_id==$all_communitys[$i]['id']){
-            $cname=$all_communitys[$i]['tag_name'];
+            $community_tag_name=$all_communitys[$i]['tag_name'];
             break;
         }
     }
-    redirect(getHost()."/community.php/?c=$cname");
+    //
+    redirect(getHost()."/community.php/?c=$community_tag_name");
 
 }
 

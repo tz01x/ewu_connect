@@ -1,7 +1,7 @@
 <?php 
 require("helper.php");
 session_start();
- $mydata=fetch_data("select * from user");
+ //$mydata=fetch_data("select * from user");
 
 ?>
 
