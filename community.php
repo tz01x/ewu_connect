@@ -312,10 +312,10 @@ if(isset($_POST['join_to_community'])){
             <p>
               <?=$community_obj[0]['about']?>
             </p>
-            <form method="post" action="">
+            <form method="get" action="http://localhost/ewu_connect/community_members.php">
             
-  
-          <button type="submit" class="btn btn-primary">Update About</button>
+            <input type="text" hidden value="<?=$community_obj[0]['tag_name']?>" name="c">
+          <button type="submit" class="btn btn-primary" name="member" >Members</button>
         </form>
             <hr>
             <small>🍰 Created : <?=$community_obj[0]['created']?></small>
