@@ -89,7 +89,7 @@ session_start();
         if(isset($_SESSION['uid'])){
 
           $sql=" SELECT post.id as pid,title,text,date,user.id as uid,username,community_name FROM `post`  INNER JOIN community on post.community_id=community.id INNER JOIN user on user.id=post.user_id  WHERE post.community_id in ( SELECT community_users.community_id from community_users WHERE user_id=".$_SESSION['uid'].")
-          ORDER BY date DESC ";
+          and post.public=1 ORDER BY date DESC ";
         // "with jcom as (select community_id as cid from community_user where user_id=".$_SESSION['uid'].")select post.id as pid ,title,text,date,community_name,from post,jcom,community,user  where post.community_id=cid and community.id=cid and user.id=post.uid "
       $getpost=fetch_data($sql);
         // "select  post.id as pid,title,text,date,user.id as uid,username,community_name  from post,user,community where post.public = 1 and post.community_id=community.id and  post.user_id='".$_SESSION['uid']."'");

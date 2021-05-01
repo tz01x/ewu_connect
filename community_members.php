@@ -120,15 +120,6 @@ if(isset($_SESSION['uid'])){
 
 <div class="container">
 
-<div >
-<?php
-
-$result=fetch_data("select count(user_id) FROM community_users where community_id='$communiy_id';");
-echo " Commmunity Population:";
-print_r($result[0]['count(user_id)']);
-?>
-
-</div>
 
 
 <div >

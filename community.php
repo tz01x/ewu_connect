@@ -32,6 +32,7 @@ if(isset($_SESSION['uid'])){
   $res=fetch_data('SELECT user_id from community_users where community_id='.$communiy_id.' and user_id='.$_SESSION['uid']);
   if(count($res)!=0){
     $is_connected_user=True;
+    // echo 'colleted';
   }
 }
 
@@ -46,13 +47,11 @@ if(isset($_POST['join_to_community'])){
   if($is_connected_user){
     return;
   }
-  $res=insert_data("insert into community_users (community_id,user_id,approveed) values (".$community_obj[0]['id'].",".$_SESSION['uid'].",1)");
+  $res=insert_data("insert into community_users (community_id,user_id,approveed_as_mod) values (".$community_obj[0]['id'].",".$_SESSION['uid'].",0)");
   if($res['status']){
-
+    // echo 'you are joined';
     echo "<script> window.location.assign('');</script>  ";
 
-  }else{
-   
   }
 
 }
@@ -70,7 +69,7 @@ if(isset($_POST['join_to_community'])){
     
     if($res['status']){
   
-      echo "<script> window.location.assign('');</script> hii ";
+      echo "<script> window.location.assign('');</script> ";
   
     }else{
      
@@ -133,7 +132,7 @@ if(isset($_POST['join_to_community'])){
     }
 
     .logo-pic {
-      width: 80px;
+      /* width: 80px; */
       height: 80px;
       border-radius: 51px;
       margin-right: 19px;
@@ -163,22 +162,34 @@ if(isset($_POST['join_to_community'])){
 
       <!-- Join community -->
       <?php 
-      if(!$is_connected_user){
-        ?>
-      <form method="post" action="">
-        <button type="submit" class="btn btn-outline-secondary" name="join_to_community">join</button>
-      </form>
-      <?php }?>
+      if($community_obj[0]['user_id']!=$_SESSION['uid']){
+          if(!$is_connected_user){
+          ?>
+          <form method="post" action="">
+            <button type="submit" class="btn btn-outline-secondary" name="join_to_community">join</button>
+          </form>
+          <?php }?>
 
-      <!-- Leave Community -->
+          <!-- Leave Community -->
 
-      <?php 
-      if($is_connected_user){
+          <?php 
+          if($is_connected_user){
+            ?>
+          <form method="post" action="">
+            <button type="submit" class="btn btn-outline-secondary" name="leave_community">Leave</button>
+          </form>
+    
+          <?php 
+            }
+        }else{
+
         ?>
-      <form method="post" action="">
-        <button type="submit" class="btn btn-outline-secondary" name="leave_community">Leave</button>
-      </form>
-      <?php }?>
+        <a href="<?php echo getHost().'./update_community.php?c='.$community_tag_name; ?>">edit</a>
+        <?php 
+        
+        }
+      ?>
+
 
     </div>
 
@@ -232,7 +243,7 @@ if(isset($_POST['join_to_community'])){
         <!-- end create post section  -->
 
             <?php
-            $getpost=fetch_data("select post.id as pid,title,text,date,user.id as uid,username  from post,user where community_id=$communiy_id and post.user_id=user.id");
+            $getpost=fetch_data("select post.id as pid,title,text,date,user.id as uid,username  from post,user where community_id=$communiy_id and post.user_id=user.id and post.public=1");
             for ($i=0; $i < count($getpost); $i++) { 
 
 
@@ -319,6 +330,15 @@ if(isset($_POST['join_to_community'])){
         </form>
             <hr>
             <small>🍰 Created : <?=$community_obj[0]['created']?></small>
+            <br>
+            <small>
+              Total Members: 
+              <?php 
+              $result=fetch_data("select count(user_id) as total_mem FROM community_users where community_id='$communiy_id';");
+              echo($result[0]['total_mem']);
+              ?>
+            </small>
+
           </div>
         </div>
 
