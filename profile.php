@@ -142,7 +142,7 @@ if($result[0]["password"]==$Old_Password)
   <div id="timeline" style="display:block">
     <div class="container">
       <?php 
-          $sql="select post.id as pid ,title,date,username,community_name,tag_name,post.public as post_public from post join user on post.user_id=user.id join community on post.community_id=community.id ";
+          $sql="select post.id as pid ,title,date,community_name,tag_name,post.public as post_public from post  join community on post.community_id=community.id where  post.user_id=".$_SESSION['uid']."";
           $res=fetch_data($sql);
 
           for ($i=0; $i < count($res); $i++) { 
