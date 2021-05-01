@@ -326,7 +326,11 @@ if(isset($_POST['join_to_community'])){
             <form method="get" action="http://localhost/ewu_connect/community_members.php">
             
             <input type="text" hidden value="<?=$community_obj[0]['tag_name']?>" name="c">
-          <button type="submit" class="btn btn-primary" name="member" >Members</button>
+          <button type="submit" class="btn btn-primary" name="member" >Members
+          [<span class="badge bg-primary rounded-pill"><?php 
+              $result=fetch_data("select count(user_id) as total_mem FROM community_users where community_id='$communiy_id';");
+              echo($result[0]['total_mem']);
+              ?></span>]</button>
         </form>
             <hr>
             <small>🍰 Created : <?=$community_obj[0]['created']?></small>
