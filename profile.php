@@ -121,52 +121,120 @@ if($result[0]["password"]==$Old_Password)
 </div>
 
 
+
 <div class="container mt-5 ">
-<h2>Edit Profile</h2>
-<form method="post" action="" class="row g-3 ">
-  <div class="col-md-6">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="#"  onclick="showThisTab('timeline')"  >My time line</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" onclick="showThisTab('aboutme')" >About me </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" onclick="showThisTab('edit-profile')" >Edit my info </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </li>
+  </ul>
 
-    <label for="inputUNAme4" class="form-label">User Name</label>
-    <input type="text " value="<?=$user_data[0]['username']?>" class="form-control" id="inputUName4" name="newName">
+  <div id="timeline" style="display:block">
+    <div class="">
+      <?php 
+          $sql="select title,date,username,community_name,tag_name,post.public as post_public from post join user on post.user_id=user.id join community on post.community_id=community.id ";
+          $res=fetch_data($sql);
+
+          for ($i=0; $i < count($res); $i++) { 
+            ?>
+            <!-- html block start  -->
+
+            <div class="card mt-3">
+            <div class="card-body">
+            <div class="row">
+            <div class="col-sm-8">
+            <h4><?=$res[$i]['title']?></h4>
+            <small>Last modify:  <?=$res[$i]['date']?></small>
+            
+            </div>
+            <div class="col-sm-4">
+            <?php 
+            if($res[$i]['post_public']){
+                echo '<div ><span class="badge rounded-pill bg-success m-2">public</span>';
+                echo '<a href="#"><span class="badge bg-secondary">make private</span></a></div>';
+            }else{
+
+              echo '<div > <span class="badge rounded-pill bg-danger m-2">private</span>';
+              echo '<a href="#"><span class="badge bg-secondary">make Public</span></a></div>';
+
+            }
+            ?>
+            
+            </div>
+            </div>
+           
+            </div>
+            </div>
+            <!-- end -->
+
+            <?php 
+
+          }
+      ?>
+    </div>
   </div>
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">Alternate Email</label>
-    <input type="email" value="<?=$user_data[0]['alternate_email']?>" class="form-control" id="inputEmail4" name="newAltMail">
+  <div id="aboutme" style="display:none">
+  about me
   </div>
-  <div class="col-12">
-    <label for="inputFName" class="form-label">Full Name</label>
-    <input type="text"value="<?=$user_data[0]['full_name']?>" class="form-control" id="inputFName" name="newFullName">
+  <div id="edit-profile"  style="display:none">
+    <div class="container">
+    <h2>Edit Profile</h2>
+    <form method="post" action="" class="row g-3 ">
+      <div class="col-md-6">
+
+        <label for="inputUNAme4" class="form-label">User Name</label>
+        <input type="text " value="<?=$user_data[0]['username']?>" class="form-control" id="inputUName4" name="newName">
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Alternate Email</label>
+        <input type="email" value="<?=$user_data[0]['alternate_email']?>" class="form-control" id="inputEmail4" name="newAltMail">
+      </div>
+      <div class="col-12">
+        <label for="inputFName" class="form-label">Full Name</label>
+        <input type="text"value="<?=$user_data[0]['full_name']?>" class="form-control" id="inputFName" name="newFullName">
+      </div>
+    
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" name="update" >Submit</button>
+      </div>
+    </form>
+
+    <div class="container mt-5">
+    <h2>Password Change</h2>
+      <form  method="post" action="" class="row g-3">
+      <div class="col-md-6">
+        <label for="inputOPass4" class="form-label">Old Password</label>
+        <input type="password" class="form-control" id="inputOPass4" name="Old_Password">
+      </div>
+      <div class="col-md-6">
+        <label for="inputNPass4" class="form-label">New Password</label>
+        <input type="password" class="form-control" id="inputNPassl4" name="New_Password">
+      </div>
+      <div class="col-12">
+        <label for="inputCPass4" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="inputCPass4" name="Confirm_Password">
+      </div>
+
+      <div class="col-12">
+        <button type="submit" name="Password_Change" class="btn btn-primary">Change Password</button>
+      </div>
+      </form>
+    </div>
+    </div>
   </div>
- 
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary" name="update" >Submit</button>
-  </div>
-</form>
+
+
 </div>
 
-
-
-<div class="container mt-5">
-<h2>Password Change</h2>
-<form  method="post" action="" class="row g-3">
-  <div class="col-md-6">
-    <label for="inputOPass4" class="form-label">Old Password</label>
-    <input type="password" class="form-control" id="inputOPass4" name="Old_Password">
-  </div>
-  <div class="col-md-6">
-    <label for="inputNPass4" class="form-label">New Password</label>
-    <input type="password" class="form-control" id="inputNPassl4" name="New_Password">
-  </div>
-  <div class="col-12">
-    <label for="inputCPass4" class="form-label">Confirm Password</label>
-    <input type="password" class="form-control" id="inputCPass4" name="Confirm_Password">
-  </div>
- 
-  <div class="col-12">
-    <button type="submit" name="Password_Change" class="btn btn-primary">Change Password</button>
-  </div>
-</form>
-</div>
 
 <div class="modal fade" id="myModal55" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -206,13 +274,20 @@ if($result[0]["password"]==$Old_Password)
       echo 'myModal.toggle();';
 
     }?>
+
+    function showThisTab(ele_id_name) {
+      document.getElementById(ele_id_name).style.display="block";
+      const ids=['timeline','aboutme', 'edit-profile'];
+      for (let index = 0; index < ids.length; index++) {
+        const ele_ids = ids[index];
+        if(ele_ids!=ele_id_name){
+          document.getElementById(ele_ids).style.display="none";
+        }
+        
+      }
+    }
+
   </script>
-
-
-
-
-
-
 
   </body>
 </html>

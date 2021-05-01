@@ -36,6 +36,6 @@ ALTER TABLE `post` ADD `public` BOOLEAN NOT NULL DEFAULT TRUE AFTER `community_i
 
 ALTER TABLE `community` ADD `public` BOOLEAN NOT NULL  DEFAULT '1' AFTER `tag_name`;
 
-
+ALTER TABLE `community_users` CHANGE `approveed` `approveed_as_mod` TINYINT(1) NOT NULL DEFAULT '0';
 
 
